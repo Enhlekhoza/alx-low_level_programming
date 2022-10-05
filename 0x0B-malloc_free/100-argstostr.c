@@ -1,90 +1,57 @@
 #include "main.h"
 
-
-int word_len(char *str);
-
-int count_words(char *str);
-
-char **strtow(char *str);
-
-
 /**
-
- * word_len - Locates the index marking the end of the
-
- *            first word contained within a string.
-
- * @str: The string to be searched.
-
- *
-
- * Return: The index marking the end of the initial word pointed to by str.
-
- */
-
-int word_len(char *str)
-
+*len - returns length of str
+*@str: string counted
+*Return: returns the length
+*/
+int len(char *str)
 {
+		int len = 0;
 
-        int index = 0, len = 0;
-
-
-        while (*(str + index) && *(str + index) != ' ')
-
-        {
-
-                len++;
-
-                index++;
-
-        }
-
-
-        return (len);
-
+		if (str != NULL)
+		{
+			while (str[len])
+				len++;
+		}
+	return (len);
 }
 
 /**
+* argstostr - a function that concatenates all the arguments of your program
+*@ac: count of args passed to the function
+*@av:array of arguments
+*
+*Return: pointer to the new string
+*/
 
- * count_words - Counts the number of words contained within a string.
-
- * @str: The string to be searched.
-
- *
-
- * Return: The number of words contained within str.
-
- */
-
-int count_words(char *str)
-
+char *argstostr(int ac, char **av)
 {
+		char *new_string = NULL;
+		int k = 0, i = ac, j, sum = 0, temp = 0;
 
-        int index = 0, words = 0, len = 0;
+		if (ac == 0 || av == NULL)
+			return (NULL);
 
+		while (ac--)
+			sum += (len(av[ac]) + 1);
+		new_string = (char *) malloc(sum + 1);
 
-        for (index = 0; *(str + index); index++)
-
-                len++;
-
-
-        for (index = 0; index < len; index++)
-
-        {
-
-                if (*(str + index) != ' ')
-
-                {
-
-                        words++;
-
-                        index += word_len(str + index);
-
-                }
-
-        }
-
-
-        return (words);
-
+		if (new_string != NULL)
+		{
+			while (k < i)
+			{
+				for (j = 0; av[k][j] != '\0'; j++)
+					new_string[j + temp] = av[k][j];
+				new_string[temp + j] = '\n';
+				temp += (j + 1);
+				k++;
+			}
+			new_string[temp] = '\0';
+		}
+		else
+		{
+			return (NULL);
+		}
+		return (new_string);
 }
