@@ -3,23 +3,20 @@
 #include <stdlib.h>
 
 
+
 /**
 
- * _realloc - Reallocates a memory block using malloc and free.
+ * _realloc - reallocates a memory block using malloc and free.
 
- * @ptr: A pointer to the memory previously allocated.
+ * @ptr: pointer to previously allocated memory
 
- * @old_size: The size in bytes of the allocated space for ptr.
+ * @old_size: size of allocated space for ptr
 
- * @new_size: The size in bytes for the new memory block.
+ * @new_size: size of newly allocated space
 
  *
 
- * Return: If new_size == old_size - ptr.
-
- *         If new_size == 0 and ptr is not NULL - NULL.
-
- *         Otherwise - a pointer to the reallocated memory block.
+ * Return: pointer to newly allocated memory, or NULL if failure
 
  */
 
@@ -27,72 +24,56 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 {
 
-        void *mem;
+	char *p;
 
-        char *ptr_copy, *filler;
+	unsigned int i, max = new_size;
 
-        unsigned int index;
-
-
-        if (new_size == old_size)
-
-                return (ptr);
+	char *oldp = ptr;
 
 
-        if (ptr == NULL)
 
-        {
+	if (ptr == NULL)
 
-                mem = malloc(new_size);
+	{
 
+		p = malloc(new_size);
 
-                if (mem == NULL)
+		return (p);
 
-                        return (NULL);
+	}
 
+	else if (new_size == 0)
 
-                return (mem);
+	{
 
-        }
+		free(ptr);
 
+		return (NULL);
 
-        if (new_size == 0 && ptr != NULL)
+	}
 
-        {
+	else if (new_size == old_size)
 
-                free(ptr);
-
-                return (NULL);
-
-        }
+		return (ptr);
 
 
-        ptr_copy = ptr;
 
-        mem = malloc(sizeof(*ptr_copy) * new_size);
+	p = malloc(new_size);
 
+	if (p == NULL)
 
-        if (mem == NULL)
+		return (NULL);
 
-        {
+	if (new_size > old_size)
 
-                free(ptr);
+		max = old_size;
 
-                return (NULL);
+	for (i = 0; i < max; i++)
 
-        }
+		p[i] = oldp[i];
 
+	free(ptr);
 
-        filler = mem;
-
-
-        for (index = 0; index < old_size && index < new_size; index++)
-
-                filler[index] = *ptr_copy++;
-
-
-        free(ptr);
-
-        return (mem);
+	return (p);
 
 }
