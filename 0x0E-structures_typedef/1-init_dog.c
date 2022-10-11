@@ -1,38 +1,31 @@
+#include <stdio.h>
 
 #include "dog.h"
 
-#include <stdlib.h>
 
 
 /**
- *
- *  * init_dog - Initializes a variable of type struct dog.
- *
- *   * @d: The dog to be initialized.
- *
- *    * @name: The name of the dog.
- *
- *     * @age: The age of the dog.
- *
- *      * @owner: The owner of the dog.
- *
- *       */
 
-void init_dog(struct dog *d, char *name, float age, char *owner)
+ * main - check the code for Holberton School students.
+
+ *
+
+ * Return: Always 0.
+
+ */
+
+int main(void)
 
 {
 
-	        if (d != NULL)
+  struct dog my_dog;
 
-			        {
 
-					                d->name = name;
 
-							                d->age = age;
+  init_dog(&my_dog, "Django", 3.5, "Jay");
 
-									                d->owner = owner;
+  printf("My name is %s, and I am %.1f :) - Woof!\n", my_dog.name, my_dog.age);
 
-											        }
+  return (0);
 
 }
-
